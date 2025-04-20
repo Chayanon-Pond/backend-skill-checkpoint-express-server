@@ -29,7 +29,7 @@ answerRouter.get("/", async (req, res) => {
      
 });
 
-answerRouter.get("/:id", async (req, res) => {
+answerRouter.get("/:id/answers", async (req, res) => {
     const answerId = req.params.id;
     let ans
     try {
@@ -44,7 +44,7 @@ answerRouter.get("/:id", async (req, res) => {
     }
 });
 
-answerRouter.post("/", [validateCreateAnswer],async (req, res) => {
+answerRouter.post("/:id/answers", [validateCreateAnswer],async (req, res) => {
   const newAnswer = {...req.body};
   const question_id = {...req.params.id};
 
@@ -57,7 +57,7 @@ answerRouter.post("/", [validateCreateAnswer],async (req, res) => {
     if (result.rowCount === 0) {
       return res.status(404).json({ error: "Question not found." });
     }
-    
+
     return res.status(201).json({
       message: "Answer created successfully!",
       data: result.rows[0],

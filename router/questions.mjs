@@ -31,6 +31,10 @@ questionRouter.get("/", async (req, res) => {
       }
 
        result = await connectionPool.query(query, values);
+       
+       if (result.rowCount === 0) {
+        return res.status(404).json({ error: "Question not found" });
+      }
       return res.json({
         data: result.rows,
       });
